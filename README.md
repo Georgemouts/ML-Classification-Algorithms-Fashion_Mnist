@@ -16,3 +16,5 @@ Download Fashion-MNINST database [here](https://www.tensorflow.org/tutorials/ker
 - Precision [true positives / (true positives + false positives)]
 - Recall [true positives / (true positives + false negatives)]
 - F1 [2 tp / (2 true positives + false positives + false negatives)]
+
+# Results
