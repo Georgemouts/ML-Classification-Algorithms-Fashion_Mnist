@@ -1,4 +1,4 @@
-# ML-Classification-Fashion_Mnist
+# ML-Classification Algorithms-Fashion_Mnist
 In this project we have to classify the Fashion-MNIST dataset which contains black and white photos of clothing using classification algorithms.
 
 ## Donwload Dataset
