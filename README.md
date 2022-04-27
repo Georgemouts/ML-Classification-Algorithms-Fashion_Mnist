@@ -3,7 +3,7 @@ In this project we have to classify the Fashion-MNIST dataset which contains bla
 
 ![alt text](https://github.com/Georgemouts/ML-Classification-Algorithms-Fashion_Mnist/blob/main/img/data1.png "Logo")
 
-## Donwload Dataset
+## Download Dataset
 Download Fashion-MNINST database [here](https://www.tensorflow.org/tutorials/keras/classification)
 
 # ALgorithms
