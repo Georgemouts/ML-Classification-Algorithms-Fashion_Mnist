@@ -10,3 +10,8 @@ Download Fashion-MNINST database [here](https://www.tensorflow.org/tutorials/ker
 - Nearest Neighbor
 - SVM
 - Neural Networks
+
+# Metrics 
+- Accuracy [(tp + tn) / (p + n)]
+- Precision [tp / (tp + fp)]
+- Recall [tp / (tp + fn)]
