@@ -12,9 +12,9 @@ Download Fashion-MNINST database [here](https://www.tensorflow.org/tutorials/ker
 - Neural Networks
 
 # Metrics 
-- **Accuracy** [(true positives + true negatives) / (positives + negatives)]
-- **Precision** [true positives / (true positives + false positives)]
-- **Recall** [true positives / (true positives + false negatives)]
-- **F1 Score** [2 true positives / (2 true positives + false positives + false negatives)]
+- **Accuracy** :[(true positives + true negatives) / (positives + negatives)]
+- **Precision** :[true positives / (true positives + false positives)]
+- **Recall** :[true positives / (true positives + false negatives)]
+- **F1 Score** :[2 true positives / (2 true positives + false positives + false negatives)]
 
 # Results
