@@ -160,7 +160,7 @@ def define_model():
     model.add(Dense(100, activation='relu', kernel_initializer='he_uniform'))
     model.add(Dense(10, activation='softmax'))
     # compile model
-    opt = SGD(lr=0.01, momentum=0.9)
+    opt = SGD(lr=0.02, momentum=0.9)
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
@@ -178,7 +178,7 @@ def evaluate_model(dataX, dataY, n_folds=5):
         history = model.fit(trainX, trainY, epochs=10, batch_size=32, validation_data=(testX, testY), verbose=0)
         # evaluate model
         _, acc = model.evaluate(testX, testY, verbose=0)
-        print('> %.3f' % (acc * 100.0))
+        print('Model Accuracy-> %.3f' % (acc * 100.0))
         # append scores
         scores.append(acc)
         histories.append(history)
