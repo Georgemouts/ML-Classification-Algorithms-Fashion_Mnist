@@ -1,6 +1,6 @@
 # ML-Classification Algorithms-Fashion_Mnist
 In this project we have to classify the Fashion-MNIST dataset which contains black and white photos of clothing using classification algorithms.
-
+UOI-Project for Machine learning course
 ![alt text](https://github.com/Georgemouts/ML-Classification-Algorithms-Fashion_Mnist/blob/main/img/data1.png "Logo")
 
 ## Download Dataset
