@@ -37,7 +37,9 @@ from keras.layers import Flatten
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical
 
-
+from numpy import mean
+from numpy import std
+from matplotlib import pyplot
 
 #------NEAREST NEIGHBOR------
 
