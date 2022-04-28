@@ -20,3 +20,6 @@ Download Fashion-MNINST database [here](https://www.tensorflow.org/tutorials/ker
 - **F1 Score** :[2 true positives / (2 true positives + false positives + false negatives)]
 
 # Results
+![alt text](https://github.com/Georgemouts/ML-Classification-Algorithms-Fashion_Mnist/blob/main/img/res1.png "Logo")
+
+![alt text](https://github.com/Georgemouts/ML-Classification-Algorithms-Fashion_Mnist/blob/main/img/res2.png "Logo")
