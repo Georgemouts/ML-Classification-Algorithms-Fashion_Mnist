@@ -66,12 +66,9 @@ def Nearest_Neighbor():
     idx =(test_labels ==0 )| (test_labels ==1) |(test_labels ==2 )|(test_labels ==3) |(test_labels==4)|(test_labels==5) | (test_labels==6) |(test_labels==7) |(test_labels==8) |(test_labels ==9)
         
     x_test= test_images[idx]
-    y_test = test_labels[idx]
-    print(len(x_test),len(y_test))
-        
+    y_test = test_labels[idx] 
     prediction = knn.predict(x_test)
-    print(prediction)
-
+   
     print("-------|Nearest Neighbor RESULTS|-------")
     # accuracy: (tp + tn) / (p + n)
     print("Accuracy =",accuracy_score(y_test,prediction))
@@ -117,10 +114,8 @@ def SVM():
         
     x_test= test_images[idx]
     y_test = test_labels[idx]
-    print(len(x_test),len(y_test))
-        
+
     prediction = SVM.predict(x_test)
-    print(prediction)
 
     # accuracy: (tp + tn) / (p + n)
     print("-------|SVM RESULTS|-------")
@@ -138,74 +133,74 @@ def SVM():
 
 #---------------------------
 #------Neural Networks------
-class NN():
-    def load():
-        fashion_mnist = tensorflow.keras.datasets.fashion_mnist
-        (trainX, trainY), (testX, testY) = fashion_mnist.load_data()
-        # reshape dataset to have a single channel
-        trainX = trainX.reshape((trainX.shape[0], 28, 28, 1))
-        testX = testX.reshape((testX.shape[0], 28, 28, 1))
-        # one hot encode target values
-        trainY = to_categorical(trainY)
-        testY = to_categorical(testY)
-       
-        # convert from integers to floats
-        train_norm = train.astype('float32')
-        test_norm = test.astype('float32')
-        # normalize to range 0-1
-        train_norm = train_norm / 255.0
-        test_norm = test_norm / 255.0
 
+def load():
+    fashion_mnist = tensorflow.keras.datasets.fashion_mnist
+    (trainX, trainY), (testX, testY) = fashion_mnist.load_data()
+    # reshape dataset to have a single channel
+    trainX = trainX.reshape((trainX.shape[0], 28, 28, 1))
+    testX = testX.reshape((testX.shape[0], 28, 28, 1))
+    # one hot encode target values
+    trainY = to_categorical(trainY)
+    testY = to_categorical(testY)
+    
+    # convert from integers to floats
+    train_norm = trainX.astype('float32')
+    test_norm = testX.astype('float32')
+    # normalize to range 0-1
+    train_norm = train_norm / 255.0
+    test_norm = test_norm / 255.0
+    return  trainX, trainY, testX, testY
 
-    def define_model():
-        model = Sequential()
-        model.add(Conv2D(32, (3, 3), padding='same', activation='relu', kernel_initializer='he_uniform', input_shape=(28, 28, 1)))
-        model.add(MaxPooling2D((2, 2)))
-        model.add(Flatten())
-        model.add(Dense(100, activation='relu', kernel_initializer='he_uniform'))
-        model.add(Dense(10, activation='softmax'))
-        # compile model
-        opt = SGD(lr=0.01, momentum=0.9)
-        model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
-        return model
+def define_model():
+    model = Sequential()
+    model.add(Conv2D(32, (3, 3), padding='same', activation='relu', kernel_initializer='he_uniform', input_shape=(28, 28, 1)))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Flatten())
+    model.add(Dense(100, activation='relu', kernel_initializer='he_uniform'))
+    model.add(Dense(10, activation='softmax'))
+    # compile model
+    opt = SGD(lr=0.01, momentum=0.9)
+    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+    return model
 
-    def evaluate_model(dataX, dataY, n_folds=5):
-        scores, histories = list(), list()
-        # prepare cross validation
-        kfold = KFold(n_folds, shuffle=True, random_state=1)
-        # enumerate splits
-        for train_ix, test_ix in kfold.split(dataX):
-            # define model
-            model = define_model()
-            # select rows for train and test
-            trainX, trainY, testX, testY = dataX[train_ix], dataY[train_ix], dataX[test_ix], dataY[test_ix]
-            # fit model
-            history = model.fit(trainX, trainY, epochs=10, batch_size=32, validation_data=(testX, testY), verbose=0)
-            # evaluate model
-            _, acc = model.evaluate(testX, testY, verbose=0)
-            print('> %.3f' % (acc * 100.0))
-            # append scores
-            scores.append(acc)
-            histories.append(history)
-        return scores, histories
+def evaluate_model(dataX, dataY, n_folds=5):
+    scores, histories = list(), list()
+    # prepare cross validation
+    kfold = KFold(n_folds, shuffle=True, random_state=1)
+    # enumerate splits
+    for train_ix, test_ix in kfold.split(dataX):
+        # define model
+        model = define_model()
+        # select rows for train and test
+        trainX, trainY, testX, testY = dataX[train_ix], dataY[train_ix], dataX[test_ix], dataY[test_ix]
+        # fit model
+        history = model.fit(trainX, trainY, epochs=10, batch_size=32, validation_data=(testX, testY), verbose=0)
+        # evaluate model
+        _, acc = model.evaluate(testX, testY, verbose=0)
+        print('> %.3f' % (acc * 100.0))
+        # append scores
+        scores.append(acc)
+        histories.append(history)
+    return scores, histories
 
-    def summarize_performance(scores):
-        # print summary
-        print('Accuracy: mean=%.3f std=%.3f, n=%d' % (mean(scores)*100, std(scores)*100, len(scores)))
-        # box and whisker plots of results
-        pyplot.boxplot(scores)
-        pyplot.show()
+def summarize_performance(scores):
+    # print summary
+    print('Accuracy: mean=%.3f std=%.3f, n=%d' % (mean(scores)*100, std(scores)*100, len(scores)))
+    # box and whisker plots of results
+    pyplot.boxplot(scores)
+    pyplot.show()
         
 def mainNN():
-    nn =NN()
-    trainX, trainY, testX, testY = nn.load()
-    scores, histories = nn.evaluate_model(trainX, trainY)
-    nn.summarize_performance(scores)
+   
+    trainX, trainY, testX, testY = load()
+    scores, histories = evaluate_model(trainX, trainY)
+    summarize_performance(scores)
 
 
 #---------------------------
 
 
-Nearest_Neighbor()
-SVM()
+#Nearest_Neighbor()
+#SVM()
 mainNN()
