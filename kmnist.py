@@ -85,7 +85,6 @@ def Nearest_Neighbor():
     print('F1 score=',f1_score(y_test,prediction,average='macro'))
 
 
-
 #-------------------------
 #------SVM------
 def SVM():
@@ -166,7 +165,7 @@ def define_model():
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-def evaluate_model(dataX, dataY, n_folds=5):
+def evaluate_model(dataX, dataY, n_folds=10):
     scores, histories = list(), list()
     # prepare cross validation
     kfold = KFold(n_folds, shuffle=True, random_state=1)
@@ -180,7 +179,7 @@ def evaluate_model(dataX, dataY, n_folds=5):
         history = model.fit(trainX, trainY, epochs=10, batch_size=32, validation_data=(testX, testY), verbose=0)
         # evaluate model
         _, acc = model.evaluate(testX, testY, verbose=0)
-        print('Model Accuracy-> %.3f' % (acc * 100.0))
+        #print('Model Accuracy-> %.3f' % (acc * 100.0))
         # append scores
         scores.append(acc)
         histories.append(history)
@@ -188,6 +187,7 @@ def evaluate_model(dataX, dataY, n_folds=5):
 
 def summarize_performance(scores):
     # print summary
+    print("-------|Convolutional Neural Network RESULTS|-------")
     print('Accuracy: mean=%.3f std=%.3f, n=%d' % (mean(scores)*100, std(scores)*100, len(scores)))
     # box and whisker plots of results
     pyplot.boxplot(scores)
@@ -203,6 +203,6 @@ def mainNN():
 #---------------------------
 
 
-#Nearest_Neighbor()
-#SVM()
+Nearest_Neighbor()
+SVM()
 mainNN()
